@@ -11,25 +11,25 @@ RUN cd /tmp && apt -y install git && git clone https://github.com/pliablepixels/
     && cd zmeventnotification && apt-get -y install libyaml-perl && apt-get -y install make &&  apt-get -y install libjson-perl \
     && perl -MCPAN -e "force install Crypt::Eksblowfish::Bcrypt" \
     && perl -MCPAN -e "force install Net::WebSocket::Server" \
-	&& perl -MCPAN -e "force install LWP::Protocol::https" \
-	&& perl -MCPAN -e "force install Config::IniFiles" \
-	&& perl -MCPAN -e "force install Net::MQTT::Simple" \
-	&& perl -MCPAN -e "force install Net::MQTT::Simple::Auth" \
-	&& yes | ./install.sh --no-install-hook \
-	&& chown -R www-data:www-data /var/lib/zmeventnotification/push/
+    && perl -MCPAN -e "force install LWP::Protocol::https" \
+    && perl -MCPAN -e "force install Config::IniFiles" \
+    && perl -MCPAN -e "force install Net::MQTT::Simple" \
+    && perl -MCPAN -e "force install Net::MQTT::Simple::Auth" \
+    && yes | ./install.sh --no-install-hook \
+    && chown -R www-data:www-data /var/lib/zmeventnotification/push/
 
-RUN	apt-get -y remove make && \
-	apt-get -y clean && \
-	apt-get -y autoremove && \
-	rm -rf /tmp/* /var/tmp/* && \
-	mkdir -p /root/zmeventnotification && \
-	cp -p /etc/zm/zm.conf /root/zmeventnotification/zm.conf && \
-	cp -p /etc/zm/zmeventnotification.ini /root/zmeventnotification/zmeventnotification.ini && \
-	cp -p /etc/zm/secrets.ini /root/zmeventnotification/secrets.ini && \
-	sed -i '/Enable SSL/!b;n;cenable = no' /root/zmeventnotification/zmeventnotification.ini && \
-	sed -i 's/send_event_end_notification = yes/send_event_end_notification = no/g' /root/zmeventnotification/zmeventnotification.ini && \
-	sed -i 's/use_hooks = yes/use_hooks = no/g' /root/zmeventnotification/zmeventnotification.ini && \
-	sed -i 's/event_end_notify_on_hook_success = fcm,web,api/event_end_notify_on_hook_success = fcm,web,api,mqtt/g' /root/zmeventnotification/zmeventnotification.ini
+RUN apt-get -y remove make && \
+    apt-get -y clean && \
+    apt-get -y autoremove && \
+    rm -rf /tmp/* /var/tmp/* && \
+    mkdir -p /root/zmeventnotification && \
+    cp -p /etc/zm/zm.conf /root/zmeventnotification/zm.conf && \
+    cp -p /etc/zm/zmeventnotification.ini /root/zmeventnotification/zmeventnotification.ini && \
+    cp -p /etc/zm/secrets.ini /root/zmeventnotification/secrets.ini && \
+    sed -i '/Enable SSL/!b;n;cenable = no' /root/zmeventnotification/zmeventnotification.ini && \
+    sed -i 's/send_event_end_notification = yes/send_event_end_notification = no/g' /root/zmeventnotification/zmeventnotification.ini && \
+    sed -i 's/use_hooks = yes/use_hooks = no/g' /root/zmeventnotification/zmeventnotification.ini && \
+    sed -i 's/event_end_notify_on_hook_success = fcm,web,api/event_end_notify_on_hook_success = fcm,web,api,mqtt/g' /root/zmeventnotification/zmeventnotification.ini
 
 # Setup Volumes
 VOLUME /config
@@ -43,13 +43,3 @@ EXPOSE 9000
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod 755 /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-
-
-
-# build images
-# docker build -t zoneminder .
-
-# pushing to docker hub
-# docker login
-# docker tag zoneminder juan11perez/zoneminder:1.0
-# docker push juan11perez/zoneminder:1.0
