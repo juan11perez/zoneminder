@@ -65,7 +65,14 @@ EXPOSE 9000
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod 755 /usr/local/bin/entrypoint.sh
 <<<<<<< HEAD
+<<<<<<< HEAD
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 =======
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 >>>>>>> 2f25616... test
+=======
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+
+#test
+>>>>>>> c8f536b... test
