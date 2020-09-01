@@ -27,3 +27,8 @@ Essentially using zmeventnotification to push motion triggers via mqtt.
     - PUID=99
     - TZ=Asia/Dubai   
 ```
+
+
+Note: upgrading from 1.34.19 to 1.34.20 requires database upgrade
+to upgrade database
+docker exec -it zoneminder zmupdate.pl
