@@ -45,4 +45,4 @@ RUN chmod 755 /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 # zm version
-# zm:1.34.19
+# zm:1.34.20
