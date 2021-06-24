@@ -127,11 +127,6 @@ fi
 #
 pip3 uninstall -y face-recognition
 
-#
-# Remove dlib module
-#
-pip3 uninstall -y dlib
-
 logger "Compiling opencv with GPU Support" -tEventServer
 
 #
@@ -306,13 +301,6 @@ ldconfig
 #
 pip3 install face-recognition
 
-#
-# Now reinstall dlib package to ensure it detects GPU.
-#
-cp /usr/local/cuda/cuda-11.2/* /usr/local/cuda/
-cd ~/ ; git clone https://github.com/davisking/dlib.git ; cd dlib ; python3 setup.py install
-#
-
 # nvcc command activation
 echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}$"
 echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
@@ -324,7 +312,17 @@ logger "Cleaning up..." -tEventServer
 
 cd ~
 rm -r opencv*
-rm -r dlib*
+
+#
+# Remove dlib module
+#
+pip3 uninstall -y dlib
+#
+# Now reinstall dlib package to ensure it detects GPU.
+#
+cd ~/ ; git clone https://github.com/davisking/dlib.git ; cd dlib ; python3 setup.py install
+#
+cd ~ ; rm -r dlib*
 
 logger "Opencv compile completed" -tEventServer
 
@@ -335,6 +333,12 @@ if [ $QUIET_MODE != 'yes' ];then
 	echo "  python3"
 	echo "  import cv2"
 	echo "  print(cv2.getBuildInformation())"
+	echo "  Ctrl-D to exit"
+	echo "Now check that dlib is working with gpu."
+	echo "Execute the following commands:"
+	echo "  python3"
+	echo "  import dlib"
+	echo "  dlib.DLIB_USE_CUDA"
 	echo "  Ctrl-D to exit"
 	echo
 	echo "Verify that the import does not show errors."
