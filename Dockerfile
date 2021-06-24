@@ -1,4 +1,4 @@
-FROM	phusion/baseimage:master
+FROM		phusion/baseimage:master
 # FROM	nvidia/cuda:11.2.0-cudnn8-devel-ubuntu20.04
 
 # LABEL maintainer=""
