@@ -1,0 +1,54 @@
+version: '3.1'
+services:
+    zoneminder:
+        container_name: zoneminder
+        image: dlandon/zoneminder.machine.learning:latest
+        restart: unless-stopped
+        ports:
+            - 8443:443/tcp
+            - 9000:9000/tcp
+        network_mode: "bridge"
+        privileged: false
+        shm_size: 8G
+        environment:
+            - TZ=America/New_York
+            - PUID=99
+            - PGID=100
+            - MULTI_PORT_START=0
+            - MULTI_PORT_END=0
+        volumes:
+            - config:/config:rw
+            - data:/var/cache/zoneminder:rw
+volumes:
+    config:
+    data:
+
+# GPU example
+
+version: '3.1'
+services:
+    zoneminder:
+        container_name: zoneminder
+        image: dlandon/zoneminder.machine.learning:latest
+        restart: unless-stopped
+        ports:
+            - 8443:443/tcp
+            - 9000:9000/tcp
+        runtime: nvidia
+        network_mode: "bridge"
+        privileged: false
+        shm_size=8G
+        environment:
+            - TZ=America/New_York
+            - PUID=99
+            - PGID=100
+            - MULTI_PORT_START=0
+            - MULTI_PORT_END=0
+        volumes:
+            - config:/config:rw
+            - data:/var/cache/zoneminder:rw
+            - cuda:/usr/local/cuda:/usr/local/cuda
+volumes:
+    config:
+    data:
+    cuda:
