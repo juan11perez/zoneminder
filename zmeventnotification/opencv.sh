@@ -324,6 +324,10 @@ cd ~/ ; git clone https://github.com/davisking/dlib.git ; cd dlib ; python3 setu
 #
 cd ~ ; rm -r dlib*
 
+# nvcc command activation
+echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}$"
+echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+
 logger "Opencv compile completed" -tEventServer
 
 if [ $QUIET_MODE != 'yes' ];then
@@ -333,12 +337,6 @@ if [ $QUIET_MODE != 'yes' ];then
 	echo "  python3"
 	echo "  import cv2"
 	echo "  print(cv2.getBuildInformation())"
-	echo "  Ctrl-D to exit"
-	echo "Now check that dlib is working with gpu."
-	echo "Execute the following commands:"
-	echo "  python3"
-	echo "  import dlib"
-	echo "  dlib.DLIB_USE_CUDA"
 	echo "  Ctrl-D to exit"
 	echo
 	echo "Verify that the import does not show errors."
