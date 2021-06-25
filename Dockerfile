@@ -1,5 +1,5 @@
 # FROM nvidia/cuda:11.2.0-cudnn8-devel-ubuntu20.04
-FROM	phusion/baseimage:master
+FROM		phusion/baseimage:master
 # LABEL maintainer=""
 
 ENV		DEBCONF_NONINTERACTIVE_SEEN="true" \
@@ -17,12 +17,12 @@ ENV		DEBCONF_NONINTERACTIVE_SEEN="true" \
 		PGID="100"\
 		OPEN_CV_VERSION="4.5.2"
 
-COPY	init/ /etc/my_init.d/
-COPY	defaults/ /root/
+COPY		init/ /etc/my_init.d/
+COPY		defaults/ /root/
 # COPY	zmeventnotification/ /root/zmeventnotification/
 # COPY	./my_init  /sbin/
 
-RUN 	apt-get update && \
+RUN 		apt-get update && \
 		apt-get -y install --no-install-recommends software-properties-common runit-systemd && \
 		add-apt-repository -y ppa:iconnor/zoneminder-$ZM_VERS && \
 		add-apt-repository ppa:ondrej/php && \
@@ -63,7 +63,7 @@ RUN		apt-get -y install python3-pip && \
 		yes | INSTALL_CORAL_EDGETPU=yes INSTALL_YOLOV3=yes INSTALL_YOLOV4=yes INSTALL_TINYYOLOV3=no INSTALL_TINYYOLOV4=yes ./install.sh
 
 # install coral usb libraries
-RUN 	echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | tee /etc/apt/sources.list.d/coral-edgetpu.list && \
+RUN 		echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | tee /etc/apt/sources.list.d/coral-edgetpu.list && \
 		curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
 		apt-get update && apt-get -y install gasket-dkms libedgetpu1-std python3-pycoral
 
@@ -132,7 +132,7 @@ VOLUME \
 		["/config"] \
 		["/var/cache/zoneminder"]
 
-EXPOSE	80 443 9000
+EXPOSE		80 443 9000
 
 CMD		["/sbin/my_init"]
 
